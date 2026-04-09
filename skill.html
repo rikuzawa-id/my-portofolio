@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills - Portofolio</title>
+    
+    <style>
+        /* Import font yang clean dan minimalis */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+        :root {
+            --bg-color: #F9F6F0; /* Kertas beras hangat */
+            --text-primary: #333333; /* Abu-abu arang */
+            --text-secondary: #666666;
+            --accent-color: #D4A373; /* Kayu hangat */
+            --accent-hover: #8A9A5B; /* Matcha pudar */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(255, 222, 156, 0.9);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #EBE6DC;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Efek interaktif garis bawah ala brush stroke tipis */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-hover);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Container Content */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 5%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Hero / Header Section */
+        .hero-subtitle {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            max-width: 600px;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Animasi Fade In Lembut */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Styling Khusus Halaman Skills --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background-color: #FFFFFF;
+            padding: 2rem;
+            border: 1px solid #EBE6DC;
+            border-radius: 8px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .skill-card h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Garis aksen kecil di bawah judul skill */
+        .skill-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Efek Hover (Melayang) pada Card */
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+            border-color: var(--accent-hover);
+        }
+
+        .skill-card:hover h3::after {
+            width: 50px;
+            background-color: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Watashi No Portofolio</a>
+        <nav>
+            <ul>
+                <li><a href="skill.html" class="active">Skill</a></li>
+                <li><a href="pengalaman.html">Pengalaman</a></li>
+                <li><a href="gallery.html">Galeri</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <p class="hero-subtitle">スキル (Sukiru)</p>
+        <h1 class="hero-title">Keahlian & Teknologi</h1>
+        <p class="hero-desc">Beberapa teknologi dan alat yang saya gunakan dalam membangun solusi digital, mulai dari antarmuka web hingga administrasi server.</p>
+        
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Konfigurasi jaringan</h3>
+                <p>Membangun struktur yang efisien dan menjangkau banyak pengguna.</p>
+            </div>
+            
+            <div class="skill-card">
+                <h3>Krimping RJ45</h3>
+                <p>Membuat kabel rj45 yang mmemenuhi standar jaringan dunia.</p>
+            </div>
+            
+            <div class="skill-card">
+                <h3>Linux Administration</h3>
+                <p>Manajemen, konfigurasi, dan optimalisasi sistem operasi berbasis Linux untuk keandalan server.</p>
+            </div>
+            
+            <div class="skill-card">
+                <h3>Photo, Video, and Editing</h3>
+                <p>Mendokumentasikan momen-momen penting dalam hidup kalian dan menjadikannya berkesan .</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
