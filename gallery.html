@@ -137,11 +137,11 @@
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             background-color: #fff;
-            aspect-ratio: 4/3; /* Membuat ukuran kotak gambar konsisten */
+            aspect-ratio: 4/3; 
         }
 
         .gallery-item img {
@@ -151,19 +151,17 @@
             transition: transform 0.5s ease;
         }
 
-        /* Efek Zoom saat di-hover */
         .gallery-item:hover img {
             transform: scale(1.08);
         }
 
-        /* Overlay Teks yang muncul saat di-hover */
         .gallery-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(51, 51, 51, 0.8); /* Warna arang transparan */
+            background: rgba(51, 51, 51, 0.8);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -179,14 +177,73 @@
         }
 
         .gallery-overlay h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            margin-bottom: 0.5rem;
             color: var(--accent-color);
+            text-align: center;
         }
 
-        .gallery-overlay p {
-            font-size: 0.9rem;
+        /* --- STYLING MODAL (OVERLAY PENUH) --- */
+        .modal {
+            display: none; /* Sembunyi secara default */
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: 200;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        #modal-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #f9f6f0;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
             font-weight: 300;
         }
 
@@ -213,40 +270,81 @@
         
         <div class="gallery-grid">
             
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop" alt="Web Development">
+            <!-- Item 1 -->
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="images/image-1.jpg" alt="Web Development">
                 <div class="gallery-overlay">
-                    <h3>Frontend Development</h3>
-                    <p>Desain UI dengan HTML, CSS & Tailwind</p>
+                    <h3>Classmeet SMK Cyber Media 2025</h3>
                 </div>
             </div>
 
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1610366961474-061ff36b5ec6?q=80&w=800&auto=format&fit=crop" alt="PC Setup">
+            <!-- Item 2 -->
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="images/workspace at PLN ICON.jpeg" alt="PC Setup">
                 <div class="gallery-overlay">
-                    <h3>Workstation & Streaming Setup</h3>
-                    <p>Rakit PC untuk produktivitas & editing</p>
+                    <h3>Workstation at PT PLN ICON PLUS</h3>
                 </div>
             </div>
 
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop" alt="Server Room">
+            <!-- Item 3 -->
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="images/masang router.jpeg" alt="Server Room">
                 <div class="gallery-overlay">
-                    <h3>Network & Linux Server</h3>
-                    <p>Konfigurasi MikroTik & Server Management</p>
+                    <h3>Instalasi Jaringan di gedung Universitas LIA lntai 2</h3>
                 </div>
             </div>
 
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=800&auto=format&fit=crop" alt="Workspace Aesthetic">
+            <!-- Item 4 -->
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="images/after LSP.jpeg" alt="Workspace Aesthetic">
                 <div class="gallery-overlay">
-                    <h3>Ruang Kerja</h3>
-                    <p>Setup minimalis ala Jepang untuk fokus *coding*</p>
+                    <h3>After LSP</h3>
                 </div>
             </div>
 
         </div>
     </main>
+
+    <!-- Modal Struktur -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="fullImage">
+        <div id="modal-caption"></div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+        const modal = document.getElementById("imageModal");
+        const fullImg = document.getElementById("fullImage");
+        const caption = document.getElementById("modal-caption");
+
+        function openModal(element) {
+            // Mengambil elemen gambar dan judul
+            const img = element.querySelector('img');
+            const title = element.querySelector('h3').innerText;
+
+            // Memasukkan data ke dalam modal
+            fullImg.src = img.src;
+            caption.innerText = title;
+
+            // Menampilkan modal dengan animasi
+            modal.classList.add("active");
+            
+            // Mengunci scroll layar utama
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            modal.classList.remove("active");
+            // Mengembalikan fungsi scroll
+            document.body.style.overflow = "auto";
+        }
+
+        // Tutup modal jika menekan tombol Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+    </script>
 
 </body>
 </html>
